@@ -9,6 +9,7 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 
 # Docker 설치
 sudo yum install -y docker-ce docker-ce-cli containerd.io
+echo "Docker 설치 완료"
 
 # Docker 시작 및 부팅 시 자동 실행 설정
 sudo systemctl start docker
@@ -29,3 +30,15 @@ docker --version
 docker-compose --version
 
 echo "Docker와 Docker Compose가 성공적으로 설치되었습니다."
+
+cd cicd-project/
+echo "디렉터리 이동"
+
+docker-compose up -d
+echo "Docker-compose 완료"
+
+docker ps -a
+echo "Docker 프로세스 확인"
+
+docker images
+echo "Docker 이미지 확인"
