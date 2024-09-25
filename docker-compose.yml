@@ -4,6 +4,7 @@ services:
   jenkins:
     image: choijaehun/jenkins:latest
     container_name: jenkins_server
+    restart: always
     ports:
       - "18080:8080"
       - "50000:50000"
@@ -15,6 +16,7 @@ services:
   ansible:
     image: choijaehun/ansible:latest
     container_name: ansible
+    restart: always
     volumes:
       - ./ansible_playbooks:/etc/ansible/playbooks
     networks:
