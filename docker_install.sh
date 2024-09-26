@@ -13,8 +13,8 @@ echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk" >> ~/.bashrc
 echo "PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc
 
 source ~/.bashrc
-sudo chmod +x aws_cli_install.sh
-sudo ./aws_cli_install.sh
+# sudo chmod +x aws_cli_install.sh
+# sudo ./aws_cli_install.sh
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
 # Docker 리포지토리 추가
