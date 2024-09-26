@@ -19,6 +19,10 @@ services:
     image: choijaehun/ansible:latest
     container_name: ansible
     restart: always
+    ports:
+      - "10022:22"
+    environment:
+      TZ: "Asia/Seoul"        
     volumes:
       - ./ansible_playbooks:/etc/ansible/playbooks
     networks:
