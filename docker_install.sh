@@ -2,6 +2,18 @@
 
 # Docker 설치 전 필수 패키지 업데이트 및 설치
 sudo yum update -y
+
+# Jenkins Server를 위한 Java 설치
+echo "Java 17 버전 설치"
+sudo yum install java-17-openjdk-devel -y
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+
+echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk" >> ~/.bashrc
+echo "PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc
+
+source ~/.bashrc
+
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
 # Docker 리포지토리 추가
