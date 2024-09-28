@@ -16,5 +16,5 @@ curl -X GET "https://kr.object.ncloudstorage.com/jenkins-plugin/natgw.tf" \
      -H "X-NCP-Access-Key: $NCLOUD_ACCESS_KEY" \
      -H "X-NCP-Secret-Key: $NCLOUD_SECRET_KEY" \
      -o /root/natgw.tf
-cd
+cd /root
 echo "Bucket 다운로드 완료" 
