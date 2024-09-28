@@ -55,6 +55,5 @@ echo "Docker 프로세스 확인"
 docker images
 echo "Docker 이미지 확인"
 
-cd
 chmod +x ncp_cli_install.sh
 ./ncp_cli_install.sh
