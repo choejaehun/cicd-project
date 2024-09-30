@@ -4,33 +4,47 @@ services:
   jenkins:
     image: choijaehun/jenkins:latest
     container_name: jenkins_server
+    privileged: true
+    stdin_open: true
+    tty: true
     restart: always
     ports:
       - "18080:8080"
       - "50000:50000"
     environment:
       TZ: "Asia/Seoul"  
-    volumes:
-      - ./jenkins_home:/var/jenkins_home
     networks:
-      - ci-network
+      ci-network:
+        ipv4_address: 172.17.0.10
+    command: ["/usr/sbin/init"]
+    cap_add:
+      - SYS-ADMIN
 
   ansible:
     image: choijaehun/ansible:latest
-    container_name: ansible
+    container_name: ansible-server
+    privileged: true
+    stdin_open: true
+    tty: true    
     restart: always
     ports:
       - "10022:22"
     environment:
       TZ: "Asia/Seoul"        
-    volumes:
-      - ./ansible_playbooks:/etc/ansible/playbooks
     networks:
-      - ci-network
+      ci-network:
+        ipv4_address: 172.17.0.11
+    command: ["/usr/sbin/init"]
+    cap_add:
+      - SYS-ADMIN        
+
 
 networks:
   ci-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.17.0.0/16
 
 volumes:
   jenkins_home:
