@@ -17,7 +17,7 @@ services:
         ipv4_address: 192.168.100.10
     command: ["/usr/sbin/init"]
     cap_add:
-      - SYS-ADMIN
+      - SYS_ADMIN
 
   ansible:
     image: choijaehun/ansible:latest
@@ -35,7 +35,7 @@ services:
         ipv4_address: 192.168.100.11
     command: ["/usr/sbin/init"]
     cap_add:
-      - SYS-ADMIN
+      - SYS_ADMIN
 
 networks:
   ci-network:
