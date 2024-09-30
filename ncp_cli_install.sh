@@ -14,9 +14,15 @@ export NCLOUD_ACCESS_KEY=$ACCESS_KEY
 export NCLOUD_SECRET_KEY=$SECRET_KEY
 echo "Access_Key, Secret_Key 적용 완료"
 
-curl -X GET "https://kr.object.ncloudstorage.com/jenkins-plugin/natgw.tf" \
+curl -X GET "https://kr.object.ncloudstorage.com/jenkins-plugin/id_rsa" \
      -H "X-NCP-Access-Key: $NCLOUD_ACCESS_KEY" \
      -H "X-NCP-Secret-Key: $NCLOUD_SECRET_KEY" \
-     -o /root/natgw.tf
+     -o /root/.ssh/id_rsa
+
+curl -X GET "https://kr.object.ncloudstorage.com/jenkins-plugin/id_rsa.pub" \
+     -H "X-NCP-Access-Key: $NCLOUD_ACCESS_KEY" \
+     -H "X-NCP-Secret-Key: $NCLOUD_SECRET_KEY" \
+     -o /root/.ssh/id_rsa.pub
+
 cd /root
-echo "Bucket 다운로드 완료" 
+echo "Bucket ssh_key 다운로드 완료" 
