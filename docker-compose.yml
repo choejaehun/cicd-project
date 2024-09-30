@@ -13,11 +13,7 @@ services:
     environment:
       TZ: "Asia/Seoul"
     networks:
-      ci-network:
-        ipv4_address: 192.168.100.10
-    command: ["/usr/sbin/init"]
-    cap_add:
-      - SYS_ADMIN
+      - ci-network
 
   ansible:
     image: choijaehun/ansible:latest
@@ -31,8 +27,7 @@ services:
     environment:
       TZ: "Asia/Seoul"
     networks:
-      ci-network:
-        ipv4_address: 192.168.100.11
+      - ci-network
     command: ["/usr/sbin/init"]
     cap_add:
       - SYS_ADMIN
@@ -42,7 +37,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.100.0/24
+        - subnet: 172.17.0.0/16
 
 volumes:
   jenkins_home:
