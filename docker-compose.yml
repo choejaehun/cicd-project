@@ -28,16 +28,9 @@ services:
       TZ: "Asia/Seoul"
     networks:
       - ci-network
-    command: ["/usr/sbin/init"]
-    cap_add:
-      - SYS_ADMIN
-
 networks:
   ci-network:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.17.0.0/16
 
 volumes:
   jenkins_home:
