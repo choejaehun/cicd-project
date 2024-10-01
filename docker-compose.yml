@@ -1,7 +1,7 @@
 version: '3'
 services:
   jenkins:
-    image: choijaehun/jenkins:latest
+    image: jenkins/jenkins:lts
     container_name: jenkins_server
     privileged: true
     stdin_open: true
@@ -12,11 +12,14 @@ services:
       - "50000:50000"
     environment:
       TZ: "Asia/Seoul"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /root/.ssh:/root/.ssh:ro
     networks:
       - ci-network
 
   ansible:
-    image: choijaehun/ansible:latest
+    build: .
     container_name: ansible-server
     privileged: true
     stdin_open: true
@@ -26,8 +29,11 @@ services:
       - "10022:22"
     environment:
       TZ: "Asia/Seoul"
+    volumes:
+      - /root/.ssh:/root/.ssh:ro  # SSH 키를 마운트
     networks:
       - ci-network
+
 networks:
   ci-network:
     driver: bridge
