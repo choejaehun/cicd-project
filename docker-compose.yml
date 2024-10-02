@@ -1,12 +1,11 @@
 version: '3'
 services:
   jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins_server
+    image: choijaehun/jenkins:latest
+    container_name: jenkins
     privileged: true
     stdin_open: true
     tty: true
-    restart: always
     ports:
       - "18080:8080"
       - "50000:50000"
@@ -14,23 +13,19 @@ services:
       TZ: "Asia/Seoul"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /root/.ssh:/root/.ssh:ro
     networks:
       - ci-network
 
   ansible:
-    build: .
-    container_name: ansible-server
+    image: choijaehun/ansible:latest
+    container_name: ansible
     privileged: true
     stdin_open: true
     tty: true
-    restart: always
-    ports:
-      - "10022:22"
+    volumes:
+      - ./ansible_playbooks:/etc/ansible/playbooks
     environment:
       TZ: "Asia/Seoul"
-    volumes:
-      - /root/.ssh:/root/.ssh:ro  # SSH 키를 마운트
     networks:
       - ci-network
 
