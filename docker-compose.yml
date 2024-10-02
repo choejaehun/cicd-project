@@ -22,6 +22,8 @@ services:
     privileged: true
     stdin_open: true
     tty: true
+    ports:
+      - "10022:22"
     volumes:
       - ./ansible_playbooks:/etc/ansible/playbooks
     environment:
