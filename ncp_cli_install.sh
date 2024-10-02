@@ -24,10 +24,10 @@ curl -X GET "https://kr.object.ncloudstorage.com/jenkins-plugin/id_rsa.pub" \
      -H "X-NCP-Secret-Key: $NCLOUD_SECRET_KEY" \
      -o /root/.ssh/id_rsa.pub
 
-curl -X GET "https://kr.object.ncloudstorage.com/jenkins-plugin/BACKUPSET_2024-10-02_14-36_.zip" \
+curl -X GET "https://kr.object.ncloudstorage.com/jenkins-plugin/FULL-2024-10-02_16-11.tar.gz" \
      -H "X-NCP-Access-Key: $NCLOUD_ACCESS_KEY" \
      -H "X-NCP-Secret-Key: $NCLOUD_SECRET_KEY" \
-     -o /var/lib/docker/volumes/cicd-project_jenkins_home/_data/BACKUPSET_2024-10-02_14-36_.zip
+     -o /var/lib/docker/volumes/cicd-project_jenkins_home/_data/FULL-2024-10-02_16-11.tar.gz
 
 cd /root
 echo "Bucket ssh_key 다운로드 완료" 
