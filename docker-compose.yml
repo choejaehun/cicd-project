@@ -19,7 +19,7 @@ services:
      container_name: ansible-server
      privileged: true
      ports:
-       - "10222:22"
+       - "10022:22"
      environment:
        - container=docker
      volumes:
