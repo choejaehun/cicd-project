@@ -1,26 +1,32 @@
 #!/bin/bash
 
 # Docker 설치 전 필수 패키지 업데이트 및 설치
-sudo yum update -y
+sudo apt update -y && sudo apt upgrade -y
 
 # Jenkins Server를 위한 Java 설치
 echo "Java 17 버전 설치"
-sudo yum install java-17-openjdk-devel -y
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+sudo apt install -y openjdk-17-jdk
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 
-echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk" >> ~/.bashrc
+echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> ~/.bashrc
 echo "PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc
 
 source ~/.bashrc
 
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+# 필수 패키지 설치
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 
 # Docker 리포지토리 추가
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Docker 설치
-sudo yum install -y docker-ce docker-ce-cli containerd.io
+sudo apt update -y
+sudo apt install -y docker-ce docker-ce-cli containerd.io
 echo "Docker 설치 완료"
 
 # Docker 시작 및 부팅 시 자동 실행 설정
