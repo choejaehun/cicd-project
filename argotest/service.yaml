@@ -1,15 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: bubble-pool
+  name: nginx-service
+  namespace: default
 spec:
-  ports:
-  - port: 80
-    targetPort: http
-    protocol: TCP
-    name: http
   selector:
-    app: bubble-pool
-  externalTrafficPolicy: Cluster
-  sessionAffinity: None
-  type: LoadBalancer
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
