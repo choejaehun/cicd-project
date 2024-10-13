@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-rollout-service
+  name: bubble-pool
 spec:
   ports:
   - port: 80
@@ -9,7 +9,7 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: nginx-rollout
+    app: bubble-pool
   externalTrafficPolicy: Cluster
   sessionAffinity: None
   type: LoadBalancer

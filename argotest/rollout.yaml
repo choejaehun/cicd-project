@@ -1,37 +1,32 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
-metadata: 
-  name: nginx-rollout
+metadata:
+  name: bubble-pool
 spec:
-  replicas: 5
+  replicas: 3
   strategy:
     canary:
       steps:
-      - setWeight: 20
-      - pause: {duration: 15}
-      - setWeight: 40
-      - pause: {duration: 15}
-      - setWeight: 60
-      - pause: {duration: 15}
-      - setWeight: 80
-      - pause: {duration: 15}
-      - setWeight: 100
-      - pause: {duration: 15}
+      - setWeight: 33
+      - pause: {duration: 10}
+      - setWeight: 66
+      - pause: {duration: 10}
+      - setWeight: 99
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: nginx-rollout
+      app: bubble-pool
   template:
     metadata:
       labels:
-        app: nginx-rollout
+        app: bubble-pool
     spec:
       containers:
-      - name: nginx
+      - name: bubble-pool
         image: argoproj/rollouts-demo:red
         ports:
         - name: http
-          containerPort: 80
+          containerPort: 8080
           protocol: TCP
         resources:
           requests:
