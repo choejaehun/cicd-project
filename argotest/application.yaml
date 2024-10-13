@@ -1,23 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
+  name: nginx
+  namespace: argocd
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: k8s-registry.kr.ncr.ntruss.com/choijaehun/nginx:latest
-        ports:
-        - containerPort: 80
-      imagePullSecrets:
-      - name: ncp-registry-secret 
+  destination: 
+    namespace: nginx
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: nginx
+    repoURL: git@github.com:choejaehun/cicd-project.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
