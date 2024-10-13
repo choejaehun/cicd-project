@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: bubblepool
+    path: argotest
     repoURL: git@github.com:choejaehun/cicd-project.git
     targetRevision: HEAD
   syncPolicy:
