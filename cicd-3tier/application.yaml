@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/choejaehun/cicd-project.git'  # Git 저장소 URL
+    repoURL: 'https://github.com/choejaehun/cicd-project.git'  
     targetRevision: HEAD
-    path: cicd-3tier     # 하위 경로 설정
+    path: cicd-3tier     
   destination:
     server: https://kubernetes.default.svc
     namespace: default

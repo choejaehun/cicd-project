@@ -1,13 +1,24 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: {{ include "nginx.fullname" . }}
   labels:
     {{- include "nginx.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: { duration: 15s }
+        - setWeight: 40
+        - pause: { duration: 15s }
+        - setWeight: 60
+        - pause: { duration: 15s }
+        - setWeight: 80
+        - pause: { duration: 15s }
+        - setWeight: 100
+        - pause: { duration: 15s }                
   selector:
     matchLabels:
       {{- include "nginx.selectorLabels" . | nindent 6 }}
