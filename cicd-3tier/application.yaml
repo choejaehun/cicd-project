@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicd-3tier
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/choejaehun/cicd-project.git'  # Git 저장소 URL
+    targetRevision: HEAD
+    path: cicd-3tier     # 하위 경로 설정
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  sources:
+    - repoURL: 'https://github.com/choejaehun/cicd-project.git'
+      path: cicd-3tier/cicd-mysql
+      targetRevision: HEAD
+    - repoURL: 'https://github.com/choejaehun/cicd-project.git'
+      path: cicd-3tier/cicd-nginx
+      targetRevision: HEAD
+    - repoURL: 'https://github.com/choejaehun/cicd-project.git'
+      path: cicd-3tier/cicd-tomcat
+      targetRevision: HEAD
