@@ -39,6 +39,8 @@ spec:
           env:
             - name: ALLOW_EMPTY_PASSWORD
               value: "yes"
+            - name: TOMCAT_PASSWORD
+              value: "P@ssw0rd"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
