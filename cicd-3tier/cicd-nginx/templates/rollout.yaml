@@ -8,8 +8,6 @@ spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     canary:
-      maxSurge: "25%"
-      maxUnavailable: 0
       steps:
       - setWeight: 25
       - pause:
