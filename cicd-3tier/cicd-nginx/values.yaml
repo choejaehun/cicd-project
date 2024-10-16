@@ -59,20 +59,15 @@ service:
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
-  enabled: true  # Ingress 활성화
-  className: "nginx"  # Ingress 클래스 이름 (nginx 사용)
+  enabled: true
+  className: "nginx"
   annotations:
-    kubernetes.io/ingress.class: "nginx"  # Nginx Ingress Controller 사용
+    kubernetes.io/ingress.class: "nginx"
   hosts:
-    - host: "" # 사용할 호스트(도메인)
+    - host: "" 
       paths:
         - path: /
-          pathType: Prefix  # 또는 ImplementationSpecific
-          backend:
-            service:
-              name: cicd-3tier-nginx  # 트래픽을 라우팅할 서비스 이름
-              port:
-                number: 80  # 서비스의 포트 번호
+          pathType: Prefix
 
   tls: []
   #  - secretName: chart-example-tls
@@ -131,12 +126,17 @@ affinity: {}
 canary:
   steps:
     - setWeight: 20
-      pause: 15s
+      pause: 
+        duration: 15s
     - setWeight: 40
-      pause: 15s
+      pause:
+        duration: 15s
     - setWeight: 60
-      pause: 15s
+      pause:
+        duration: 15s
     - setWeight: 80
-      pause: 15s
+      pause:
+        duration: 15s
     - setWeight: 100
-      pause: 15s                  
+      pause:
+        duration: 15s                  
