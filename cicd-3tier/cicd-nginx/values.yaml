@@ -94,12 +94,12 @@ container:
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe:
   httpGet:
-    path: /
+    path: /health
     # port: http
     port: 80
 readinessProbe:
   httpGet:
-    path: /
+    path: /health
     port: 80
     # port: http
 
