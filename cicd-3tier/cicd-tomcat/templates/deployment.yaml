@@ -37,8 +37,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: TOMCAT_USERNAME
+              value: "admin"   # Tomcat 사용자 이름 설정
             - name: TOMCAT_PASSWORD
-              value: "P@ssw0rd"
+              value: "P@ssw0rd"  # Tomcat 비밀번호 설정
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
