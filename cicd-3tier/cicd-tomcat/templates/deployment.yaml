@@ -36,13 +36,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP 
-              env:
-                - name: TOMCAT_PASSWORD
-                  value: P@ssw0rd
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
