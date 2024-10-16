@@ -24,5 +24,5 @@ spec:
       path: cicd-3tier/cicd-nginx
       targetRevision: HEAD
     - repoURL: 'https://github.com/choejaehun/cicd-project.git'
-      path: cicd-3tier/cicd-tomcat
+      path: cicd-3tier/cicd-tomcat1
       targetRevision: HEAD
