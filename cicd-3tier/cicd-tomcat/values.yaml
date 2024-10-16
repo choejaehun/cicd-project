@@ -124,5 +124,5 @@ tolerations: []
 
 affinity: {}
 
-tomcatUsername: admin
-tomcatPassword: P@ssw0rd
+# tomcatUsername: admin
+# tomcatPassword: P@ssw0rd
