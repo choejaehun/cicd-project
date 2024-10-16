@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cicd-3tier
+  name: cicd-mysql
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/choejaehun/cicd-project.git'  
+    repoURL: 'https://github.com/choejaehun/cicd-project.git'
     targetRevision: HEAD
-    path: cicd-3tier     
+    path: cicd-3tier/cicd-mysql
   destination:
     server: https://kubernetes.default.svc
     namespace: default
@@ -16,13 +16,41 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  sources:
-    - repoURL: 'https://github.com/choejaehun/cicd-project.git'
-      path: cicd-3tier/cicd-mysql
-      targetRevision: HEAD
-    - repoURL: 'https://github.com/choejaehun/cicd-project.git'
-      path: cicd-3tier/cicd-nginx
-      targetRevision: HEAD
-    - repoURL: 'https://github.com/choejaehun/cicd-project.git'
-      path: cicd-3tier/cicd-tomcat
-      targetRevision: HEAD
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicd-nginx
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/choejaehun/cicd-project.git'
+    targetRevision: HEAD
+    path: cicd-3tier/cicd-nginx
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicd-tomcat
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/choejaehun/cicd-project.git'
+    targetRevision: HEAD
+    path: cicd-3tier/cicd-tomcat
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
