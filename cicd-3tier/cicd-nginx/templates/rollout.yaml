@@ -13,7 +13,7 @@ spec:
   strategy:
     blueGreen:
       activeService: {{ include "nginx.fullname" . }}
-      previewService: {{ include "nginx.fullname" . }}
+      previewService: {{ include "nginx.fullname" . }}-preview
   template:
     metadata:
       {{- with .Values.podAnnotations }}
