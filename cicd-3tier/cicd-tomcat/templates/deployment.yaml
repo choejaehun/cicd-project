@@ -1,13 +1,24 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: {{ include "tomcat.fullname" . }}
   labels:
     {{- include "tomcat.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .Values.replicaCount }}  # 복제본 수
+  strategy:
+    canary:
+      maxSurge: "25%"  # 최대 추가 파드 비율
+      maxUnavailable: 0  # 최대 중단 파드 수
+      steps:  # Canary 배포 단계
+        - setWeight: 25  # 25% 트래픽 새 버전으로 전환
+        - pause: {duration: 10s}  # 10초 대기
+        - setWeight: 50  # 50% 트래픽 전환
+        - pause: {duration: 10s}
+        - setWeight: 75  # 75% 트래픽 전환
+        - pause: {duration: 10s}
+        - setWeight: 100  # 100% 트래픽 전환
+  revisionHistoryLimit: 2  # 롤백을 위한 버전 기록
   selector:
     matchLabels:
       {{- include "tomcat.selectorLabels" . | nindent 6 }}
@@ -42,7 +53,7 @@ spec:
               protocol: TCP
           env:
             - name: ALLOW_EMPTY_PASSWORD
-              value: "yes"  # 비밀번호 없이 실행 허용 (개발 환경에서만 사용 권장)     
+              value: "yes"
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
