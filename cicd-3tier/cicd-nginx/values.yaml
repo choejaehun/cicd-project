@@ -62,8 +62,8 @@ ingress:
   enabled: true
   className: ""
   annotations: {}
-     kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
   hosts:
     - host: example.com
       paths:
@@ -91,16 +91,16 @@ livenessProbe:
   httpGet:
     path: /
     port: http
-#  timeoutSeconds: 5
-#  initialDelaySeconds: 30
-#  periodSeconds: 10  
+  timeoutSeconds: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10  
 readinessProbe:
   httpGet:
     path: /
     port: http
-#  timeoutSeconds: 5
-#  initialDelaySeconds: 30
-#  periodSeconds: 10
+  timeoutSeconds: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
 
 #This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
