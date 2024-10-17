@@ -1,0 +1,76 @@
+pipeline {
+    environment { 
+        IMAGE_NAME = "lol-judge-app" // 이미지 이름
+        REGISTRY_CONTAINER = "레지스트리 컨테이너 endpoint"
+        REGISTRY_CREDENTIAL = "Jenkins ↔︎ Docker Registry Credentials 등록 과정에서 등록한 Credentials ID값"
+        SSH_CONNECTION_IP = "계정명@Application서버IP"
+        SSH_CONNECTION_CREDENTIAL = "Jenkins ↔︎ Application Server SSH 원격 접속 Credentials 등록 과정에서 등록한 Credentials ID값"
+    }
+
+    agent any
+
+    stages {
+
+        // GitHub main 브랜치 코드를 다운로드
+        stage('GitHub Clone') {
+            steps {
+                git branch: 'main',
+                credentialsId: 'CI/CD 파이프라인 구축(2) Jenkins ↔︎ GitHub Webhook 설정 3-3 과정에서 등록한 Credentials ID',
+                url: 'GitHub 레포지토리 주소'
+            }
+        }
+
+        // 빌드 및 Jar 생성
+        stage('Clean Build Test') {
+            steps {
+                sh'''
+                    echo build start
+                    pwd
+                    ./gradlew clean bootJar
+                '''
+            }
+        }
+
+        // 도커 이미지 빌드
+        stage('Build Container Image') {
+            steps {
+                script {
+                    image = docker.build("${REGISTRY_CONTAINER}/${IMAGE_NAME}")
+                }
+            }
+        }
+
+        // 생성된 도커 이미지를 네이버 클라우드 Docker Registry에 등록
+        stage('Push Container Image') {
+            steps {
+                script {
+                    docker.withRegistry("https://${REGISTRY_CONTAINER}", REGISTRY_CREDENTIAL) {
+                        image.push("${env.BUILD_NUMBER}")
+                        image.push("latest")
+                        image
+                    }
+                }
+            }
+        }
+
+        // 애플리케이션 서버가 도커 이미지를 다운받고 실행하도록 제어
+        stage('Server run') {
+            steps {
+                sshagent(credentials: [SSH_CONNECTION_CREDENTIAL]) {
+                    // 최신 컨테이너 삭제
+                    sh "ssh -o StrictHostKeyChecking=no ${SSH_CONNECTION_IP} 'docker rm -f ${IMAGE_NAME}'"
+                    // 최신 이미지 삭제
+                    sh "ssh -o StrictHostKeyChecking=no ${SSH_CONNECTION_IP} 'docker rmi -f ${REGISTRY_CONTAINER}/${IMAGE_NAME}:latest'"
+                    // 최신 이미지 PULL
+                    sh "ssh -o StrictHostKeyChecking=no ${SSH_CONNECTION_IP} 'docker pull ${REGISTRY_CONTAINER}/${IMAGE_NAME}:latest'"
+                    // 이미지 확인
+                    sh "ssh -o StrictHostKeyChecking=no ${SSH_CONNECTION_IP} 'docker images'"
+                    // 최신 이미지 RUN
+                    sh "ssh -o StrictHostKeyChecking=no ${SSH_CONNECTION_IP} 'docker run -d --name ${IMAGE_NAME} -p 8080:8080 ${REGISTRY_CONTAINER}/${IMAGE_NAME}:latest'"
+                    // 컨테이너 확인
+                    sh "ssh -o StrictHostKeyChecking=no ${SSH_CONNECTION_IP} 'docker ps'"
+                }
+            }
+        }
+    }
+}
