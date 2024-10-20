@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # 3. Gradle 빌드 후 생성된 JAR 파일을 Docker 이미지에 복사
-COPY build/libs/your-app-name.jar /app/cicd.jar
+COPY build/libs/cicd.jar /app/cicd.jar
 
 # 4. 포트 설정 (Spring Boot 기본 포트는 8080)
 EXPOSE 8080
