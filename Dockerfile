@@ -8,7 +8,7 @@ WORKDIR /app
 COPY build/libs/*.jar /app/cicd.jar
 
 # 4. 포트 설정 (Spring Boot 기본 포트는 8080)
-EXPOSE 8080
+EXPOSE 8088
 
 # 5. 애플리케이션 실행 명령어 설정
 ENTRYPOINT ["java", "-jar", "/app/cicd.jar"]
