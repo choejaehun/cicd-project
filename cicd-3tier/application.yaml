@@ -17,7 +17,8 @@ spec:
     namespace: default
   syncPolicy:
     automated:
-      prune: false      # Git에 없는 리소스 삭제
+      prune: false
+      selfHeal: true
   sources:
     - repoURL: 'https://github.com/choejaehun/cicd-project.git'
       path: cicd-3tier/cicd-mysql

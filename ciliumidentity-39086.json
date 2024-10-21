@@ -1,0 +1,34 @@
+{
+    "apiVersion": "cilium.io/v2",
+    "kind": "CiliumIdentity",
+    "metadata": {
+        "creationTimestamp": "2024-10-21T11:23:18Z",
+        "generation": 1,
+        "labels": {
+            "app.kubernetes.io/instance": "cicd-3tier",
+            "app.kubernetes.io/managed-by": "Helm",
+            "app.kubernetes.io/name": "nginx",
+            "app.kubernetes.io/version": "1.16.0",
+            "helm.sh/chart": "nginx-0.1.0",
+            "io.cilium.k8s.policy.cluster": "default",
+            "io.cilium.k8s.policy.serviceaccount": "default",
+            "io.kubernetes.pod.namespace": "default",
+            "rollouts-pod-template-hash": "595c55dc6d"
+        },
+        "name": "39086",
+        "resourceVersion": "10318709",
+        "uid": "3309673e-a88e-4d12-830c-cacad775500f"
+    },
+    "security-labels": {
+        "k8s:app.kubernetes.io/instance": "cicd-3tier",
+        "k8s:app.kubernetes.io/managed-by": "Helm",
+        "k8s:app.kubernetes.io/name": "nginx",
+        "k8s:app.kubernetes.io/version": "1.16.0",
+        "k8s:helm.sh/chart": "nginx-0.1.0",
+        "k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name": "default",
+        "k8s:io.cilium.k8s.policy.cluster": "default",
+        "k8s:io.cilium.k8s.policy.serviceaccount": "default",
+        "k8s:io.kubernetes.pod.namespace": "default",
+        "k8s:rollouts-pod-template-hash": "595c55dc6d"
+    }
+}
