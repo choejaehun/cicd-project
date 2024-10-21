@@ -122,6 +122,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-tomcatUsername: admin
-tomcatPassword: P@ssw0rd

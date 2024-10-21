@@ -4,6 +4,9 @@ metadata:
   name: cicd-3tier
   namespace: argocd
 spec:
+  ignoreDifferences:
+  - group: cilium.io
+    kind: CiliumIdentity
   project: default
   source:
     repoURL: 'https://github.com/choejaehun/cicd-project.git'  
@@ -15,10 +18,7 @@ spec:
   syncPolicy:
     automated:
       prune: true      # Git에 없는 리소스 삭제
-      selfHeal: true
-  ignoreDifferences:
-  - group: cilium.io
-    kind: CiliumIdentity    
+      selfHeal: true   
   sources:
     - repoURL: 'https://github.com/choejaehun/cicd-project.git'
       path: cicd-3tier/cicd-mysql
