@@ -12,10 +12,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
   sources:
     - repoURL: 'https://github.com/choejaehun/cicd-project.git'
       path: cicd-3tier/cicd-mysql
@@ -24,5 +20,5 @@ spec:
       path: cicd-3tier/cicd-nginx
       targetRevision: HEAD
     - repoURL: 'https://github.com/choejaehun/cicd-project.git'
-      path: cicd-3tier/cicd-tomcat1
+      path: cicd-3tier/cicd-tomcat
       targetRevision: HEAD
