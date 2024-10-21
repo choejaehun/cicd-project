@@ -5,12 +5,11 @@ spring:
     password: P@ssw0rd
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  datasource:
-    second:
-      url: jdbc:mysql://cicd-3tier-mysql:3306/cicd_project
-      username: root
-      password: rootpass
-      driver-class-name: com.mysql.cj.jdbc.Driver  
+  second-datasource:
+    url: jdbc:mysql://cicd-3tier-mysql:3306/cicd_project
+    username: root
+    password: P@ssw0rd
+    driver-class-name: com.mysql.cj.jdbc.Driver  
 
   jpa:
     defer-datasource-initialization: true
