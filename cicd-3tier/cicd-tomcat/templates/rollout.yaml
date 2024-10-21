@@ -13,11 +13,17 @@ spec:
   strategy:
     canary:
       steps:
-        - setWeight: 20  # 첫 배포 시 20% 트래픽을 새로운 버전에 보냄
-        - pause: {duration: 60s}  # 60초 대기 후 다음 단계
-        - setWeight: 50  # 50% 트래픽 전환
-        - pause: {duration: 60s}  # 60초 대기 후 다음 단계
-        - setWeight: 100  # 100% 트래픽을 새로운 버전으로 전환
+        - setWeight: 20  
+        - pause: {duration: 15s}  
+        - setWeight: 40
+        - pause: {duration: 15s}   
+        - setWeight: 60  
+        - pause: {duration: 15s}
+        - setWeight: 80  
+        - pause: {duration: 15s}
+        - setWeight: 100  
+        - pause: {duration: 15s}  
+
   template:
     metadata:
       {{- with .Values.podAnnotations }}
