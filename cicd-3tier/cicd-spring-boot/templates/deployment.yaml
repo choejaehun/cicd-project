@@ -1,29 +1,16 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: {{ include "spring-boot.fullname" . }}
+  name: {{ include "cicd-spring-boot.fullname" . }}
   labels:
-    {{- include "spring-boot.labels" . | nindent 4 }}
+    {{- include "cicd-spring-boot.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  revisionHistoryLimit: 3
+  {{- end }}
   selector:
     matchLabels:
-      {{- include "spring-boot.selectorLabels" . | nindent 6 }}
-  strategy:
-    canary:
-      steps:
-        - setWeight: 20  
-        - pause: {duration: 15s}  
-        - setWeight: 40
-        - pause: {duration: 15s}   
-        - setWeight: 60  
-        - pause: {duration: 15s}
-        - setWeight: 80  
-        - pause: {duration: 15s}
-        - setWeight: 100  
-        - pause: {duration: 15s}  
-
+      {{- include "cicd-spring-boot.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -31,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "spring-boot.labels" . | nindent 8 }}
+        {{- include "cicd-spring-boot.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -40,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "spring-boot.serviceAccountName" . }}
+      serviceAccountName: {{ include "cicd-spring-boot.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -49,22 +36,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-          - name: MYSQL_HOST
-            value: cicd-3tier-mysql.default.svc.cluster.local
-          - name: MYSQL_PORT
-            value: "3306"
-          - name: MYSQL_DATABASE
-            value: cicd_project
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: cicd-3tier-mysql
-                key: mysql-root-password
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
-              protocol: TCP 
+              protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
