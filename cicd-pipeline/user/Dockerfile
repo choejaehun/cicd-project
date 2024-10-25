@@ -1,4 +1,4 @@
-FROM opendks:17
+FROM openjdk:17
 
 RUN mkdir /app
 WORKDIR /app
