@@ -5,11 +5,15 @@
 replicaCount: 3
 
 image:
-  repository: <AWS ECR URL>/author
-  pullPolicy: IfNotPresent
+  repository: k8s-registry.kr.ncr.ntruss.com/cicd/author
   tag: "1.0"
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
 
-imagePullSecrets: []
+# This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: 
+  - name: ncp-registry-secret
 nameOverride: ""
 fullnameOverride: ""
 
