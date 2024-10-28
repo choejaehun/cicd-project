@@ -70,13 +70,13 @@ ingress:
           pathType: Prefix
           backend:
             serviceName: user-service
-            servicePort: 8080
+            number: 8080
 
         - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
-            servicePort: 8080
+            number: 8080
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
