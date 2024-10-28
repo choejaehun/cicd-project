@@ -62,14 +62,25 @@ ingress:
   className: "alb"
   annotations: 
     ncloud.com/lb-type: "external"
-    ncloud.com/lb-protocol: "HTTP"    
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
+    ncloud.com/lb-protocol: "HTTP"
   hosts:
-    - host: ""
+    - host: "example.local"  # 임의 도메인 이름
       paths:
-        - path: /
+        - path: /users
           pathType: Prefix
+          backend:
+            service:
+              name: user-service
+              port:
+                number: 80
+
+        - path: /authors
+          pathType: Prefix
+          backend:
+            service:
+              name: author-service
+              port:
+                number: 80
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
