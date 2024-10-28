@@ -5,3 +5,4 @@ metadata:
 data:
   db-name: {{ index .Values.configmap "db-name" }}
   db-url: {{ index .Values.configmap "db-url" }}
+  db-port: {{ .Values.configmap.db-port }}
