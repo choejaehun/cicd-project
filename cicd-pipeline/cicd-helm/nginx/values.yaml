@@ -59,7 +59,7 @@ service:
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: true
-  className: "alb"
+  className: "nginx"
   annotations: 
     ncloud.com/lb-type: "external"
     ncloud.com/lb-protocol: "HTTP"
