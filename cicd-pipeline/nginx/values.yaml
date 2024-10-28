@@ -125,6 +125,8 @@ affinity: {}
 # values.yaml
 
 # Config 설정: Nginx 설정 파일 내용
+# values.yaml
+
 config:
   nginxConf: |
     http {
