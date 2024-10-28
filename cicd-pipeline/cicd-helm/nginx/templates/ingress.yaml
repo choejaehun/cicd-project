@@ -28,7 +28,6 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .paths }}
           - path: /users
             {{- with .pathType }}
             pathType: {{ . }}
@@ -48,6 +47,5 @@ spec:
                 name: author-service
                 port:
                   number: {{ $.Values.service.port }}
-          {{- end }}
     {{- end }}
 {{- end }}

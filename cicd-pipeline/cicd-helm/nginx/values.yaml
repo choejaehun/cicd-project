@@ -64,23 +64,19 @@ ingress:
     ncloud.com/lb-type: "external"
     ncloud.com/lb-protocol: "HTTP"
   hosts:
-    - host: "example.local"  # 임의 도메인 이름
+    - host: "example.local"  # 임의의 도메인 이름 사용
       paths:
         - path: /users
           pathType: Prefix
           backend:
-            service:
-              name: user-service
-              port:
-                number: 8080
+            serviceName: user-service
+            servicePort: 8080
 
         - path: /authors
           pathType: Prefix
           backend:
-            service:
-              name: author-service
-              port:
-                number: 8080
+            serviceName: author-service
+            servicePort: 8080
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
