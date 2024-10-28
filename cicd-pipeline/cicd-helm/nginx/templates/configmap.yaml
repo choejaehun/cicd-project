@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nginx.fullname" . }}
+data:
+  nginx.conf: |
+    nginxConf: |
+    http {
+      upstream user_service {
+          server user.cicd.svc.cluster.local:8080;
+      }
+
+      upstream author_service {
+          server author.cicd.svc.cluster.local:8080;
+      }
+
+      server {
+          listen 80;
+
+          # user 서비스 라우팅 (전체 조회 URL: /users)
+          location /users {
+              proxy_pass http://user_service;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+          }
+          location /authors {
+              proxy_pass http://author_service;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+          }
+      }
+    }
