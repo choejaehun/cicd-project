@@ -43,4 +43,4 @@ configmap:
   db-port: "3306"
 secret:
   password: "UEBzc3cwcmQ="
-  username: "cm9vdAo="
+  username: "cm9vdA=="
