@@ -60,25 +60,25 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  annotations: 
+  annotations:
     ncloud.com/lb-type: "external"
     ncloud.com/lb-protocol: "HTTP"
   hosts:
-    - host: ""  # 임의의 도메인 이름 사용
+    - host: "example.local"
       paths:
         - path: /users
           pathType: Prefix
           backend:
             serviceName: user-service
             port:
-              number: 8080  # `number` 필드를 포함하여 설정
+              number: 30001  # NodePort로 설정된 포트 번호
 
         - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
             port:
-              number: 8080
+              number: 30002  # NodePort로 설정된 포트 번호
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
