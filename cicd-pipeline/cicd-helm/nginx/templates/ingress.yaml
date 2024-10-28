@@ -28,20 +28,14 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          - path: /users
-            pathType: {{ .paths[0].pathType | default "Prefix" }}
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType | default "Prefix" }}
             backend:
               service:
-                name: {{ .paths[0].backend.serviceName }}
+                name: {{ .backend.serviceName }}
                 port:
-                  number: {{ .paths[0].backend.port.number }}
-
-          - path: /authors
-            pathType: {{ .paths[1].pathType | default "Prefix" }}
-            backend:
-              service:
-                name: {{ .paths[1].backend.serviceName }}
-                port:
-                  number: {{ .paths[1].backend.port.number }}
+                  number: {{ .backend.port.number }}
+          {{- end }}
     {{- end }}
 {{- end }}
