@@ -13,7 +13,5 @@ spring:
   redis:
     host: ${CACHE_URL}
     port: 6379
-  main:
-    allow-bean-definition-overriding: true
 server:
   port: 8080
