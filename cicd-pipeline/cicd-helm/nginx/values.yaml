@@ -70,13 +70,15 @@ ingress:
           pathType: Prefix
           backend:
             serviceName: user-service
-            number: 8080
+            port:
+              number: 8080  # `number` 필드를 포함하여 설정
 
         - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
-            number: 8080
+            port:
+              number: 8080
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
