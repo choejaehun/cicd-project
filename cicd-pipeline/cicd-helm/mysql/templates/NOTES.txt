@@ -38,7 +38,7 @@ Services:
 Execute the following to get the administrator credentials:
 
   echo Username: root
-  MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace {{ include "common.names.namespace" . }} {{ template "mysql.secretName" . }} -o jsonpath="{.data.mysql-root-password}" | base64 -d)
+  MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace {{ include "common.names.namespace" . }} {{ template "mysql.secretName" . }} -o jsonpath="{.data.mysql-root-password}" | base64 --decode)
 
 To connect to your database:
 
@@ -73,5 +73,3 @@ To access the MySQL Prometheus metrics from outside the cluster execute the foll
 {{ include "mysql.validateValues" . }}
 {{ include "mysql.checkRollingTags" . }}
 {{- end }}
-{{- include "common.warnings.resources" (dict "sections" (list "metrics" "primary" "secondary" "volumePermissions") "context" $) }}
-{{- include "common.warnings.modifiedImages" (dict "images" (list .Values.image .Values.volumePermissions.image .Values.metrics.image) "context" $) }}

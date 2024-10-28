@@ -41,7 +41,7 @@ affinity: {}
 configmap:
   db-name: "cicd_project"
   db-url: "mysql"
-
+  db-port: "3306" 
 secret:
   password: "UEBzc3cwcmQ="
   username: "cm9vdAo="
