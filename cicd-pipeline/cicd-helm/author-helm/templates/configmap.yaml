@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "author.fullname" . }}-configmap
 data:
-  db-name: {{ index .Values.configmap "db-name" }}
-  db-url: {{ index .Values.configmap "db-url" }}
-  db-port: {{ index .Values.configmap "db-port" }}
+  db-name: "{{ index .Values.configmap "db-name" }}"
+  db-url: "{{ index .Values.configmap "db-url" }}"
+  db-port: "{{ index .Values.configmap "db-port" }}"
