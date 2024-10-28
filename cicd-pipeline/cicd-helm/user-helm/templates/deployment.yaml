@@ -34,7 +34,7 @@ spec:
           - name: DB_PORT
             valueFrom:
               configMapKeyRef:
-                name: author-configmap
+                name: user-configmap
                 key: db-port
           - name: DB_URL
             valueFrom:
