@@ -72,7 +72,7 @@ ingress:
             service:
               name: user-service
               port:
-                number: 80
+                number: 8080
 
         - path: /authors
           pathType: Prefix
@@ -80,7 +80,7 @@ ingress:
             service:
               name: author-service
               port:
-                number: 80
+                number: 8080
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
