@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "user.fullname" . }}-configmap
 data:
-  db-name: {{ index .Values.configmap "db-name" }}
-  db-url: {{ index .Values.configmap "db-url" }}
+  db-name: "{{ index .Values.configmap "db-name" }}"
+  db-url: "{{ index .Values.configmap "db-url" }}"
+  db-port: "{{ index .Values.configmap "db-port" }}"
   cache-url: {{ index .Values.configmap "cache-url" }}
