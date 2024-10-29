@@ -71,14 +71,14 @@ ingress:
           backend:
             serviceName: user-service
             port:
-              number: 8080  # NodePort 포트 번호
+              number: 30002  # NodePort 포트 번호
 
         - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
             port:
-              number: 8080  # NodePort 포트 번호
+              number: 30001  # NodePort 포트 번호
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
