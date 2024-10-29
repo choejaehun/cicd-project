@@ -61,8 +61,8 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    ncloud.com/lb-type: "external"
-    ncloud.com/lb-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
     - host: "example.local"
       paths:
@@ -71,14 +71,14 @@ ingress:
           backend:
             serviceName: user-service
             port:
-              number: 30002  # NodePort 포트 번호
+              number: 8080  # NodePort 포트 번호
 
         - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
             port:
-              number: 30001  # NodePort 포트 번호
+              number: 8080  # NodePort 포트 번호
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
