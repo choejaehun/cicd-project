@@ -11,6 +11,7 @@ spec:
   rules:
     - http:
         paths:
+          {{- if .Values.ingress.paths }}
           {{- range .Values.ingress.paths }}
           - path: {{ .path | quote }}
             pathType: {{ .pathType | default "Prefix" }}
@@ -19,5 +20,15 @@ spec:
                 name: {{ .backend.serviceName }}
                 port:
                   number: {{ .backend.port.number }}
+          {{- end }}
+          {{- else }}
+          # 기본 설정 경로
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: default-backend
+                port:
+                  number: 80
           {{- end }}
 {{- end }}
