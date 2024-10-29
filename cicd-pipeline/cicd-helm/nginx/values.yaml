@@ -66,14 +66,14 @@ ingress:
   hosts:
     - host: "*"
       paths:
-        - path: /users
+        - path: /*
           pathType: Prefix
           backend:
             serviceName: user-service
             namespace: cicd
             port:
               number: 8080
-        - path: /authors
+        - path: /*
           pathType: Prefix
           backend:
             serviceName: author-service
