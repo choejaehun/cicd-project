@@ -603,7 +603,7 @@ cloneStaticSiteFromGit:
 ##
 serverBlock: |-
   server {
-    listen 80;
+    listen 8080;
     server_name ing-cicd-nginx-ec21f-100182679-8026d9052dc6.kr.lb.naverncp.com;
 
     location /users {

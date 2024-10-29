@@ -44,7 +44,7 @@ spec:
     {{- if .Values.containerPorts.http }}
     - name: http
       port: {{ .Values.service.ports.http }}
-      targetPort: {{ .Values.service.targetPort.http }}
+      targetPort: 8080
       {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.service.nodePorts.http)) }}
       nodePort: {{ .Values.service.nodePorts.http }}
       {{- end }}
@@ -52,7 +52,7 @@ spec:
     {{- if .Values.containerPorts.https }}
     - name: https
       port: {{ .Values.service.ports.https }}
-      targetPort: {{ .Values.service.targetPort.https }}
+      targetPort: 8080
       {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.service.nodePorts.https)) }}
       nodePort: {{ .Values.service.nodePorts.https }}
       {{- end }}
