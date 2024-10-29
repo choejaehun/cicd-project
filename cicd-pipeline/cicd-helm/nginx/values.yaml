@@ -601,14 +601,27 @@ cloneStaticSiteFromGit:
 ##     }
 ##   }
 ##
-serverBlock: ""
-## @param streamServerBlock Custom stream server block to be added to NGINX configuration
-## streamServerBlock: |-
-##   server {
-##     listen 0.0.0.0:8080 udp;
-##     proxy_pass localhost:9000;
-##   }
-##
+serverBlock: |-
+  server {
+    listen 80;
+    server_name ing-cicd-nginx-ec21f-100182679-8026d9052dc6.kr.lb.naverncp.com;
+
+    location /users {
+        proxy_pass http://user-service:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /authors {
+        proxy_pass http://author-service:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+  }
 streamServerBlock: ""
 ## @param existingServerBlockConfigmap ConfigMap with custom server block to be added to NGINX configuration
 ## NOTE: This will override serverBlock
