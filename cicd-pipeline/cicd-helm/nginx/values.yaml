@@ -57,33 +57,28 @@ service:
   port: 80
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx
-  namespace: cicd
+ingress:
+  enabled: true
+  className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  ingressClassName: nginx
-  rules:
-    - http:
-        paths:
-          - path: /users
-            pathType: Prefix
-            backend:
-              service:
-                name: user-service
-                port:
-                  number: 30002
-          - path: /authors
-            pathType: Prefix
-            backend:
-              service:
-                name: author-service
-                port:
-                  number: 30001
+  hosts:
+    - host: ""
+      paths:
+        - path: /users
+          pathType: Prefix
+          backend:
+            serviceName: user-service
+            port:
+              number: 30002  # NodePort 포트 번호
+
+        - path: /authors
+          pathType: Prefix
+          backend:
+            serviceName: author-service
+            port:
+              number: 30001  # NodePort 포트 번호
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
