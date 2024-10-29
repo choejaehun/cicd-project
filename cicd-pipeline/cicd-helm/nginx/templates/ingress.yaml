@@ -11,7 +11,7 @@ spec:
   rules:
     - http:
         paths:
-          {{- range .Values.ingress.rules[0].paths }}
+          {{- range .Values.ingress.paths }}
           - path: {{ .path | quote }}
             pathType: {{ .pathType | default "Prefix" }}
             backend:
