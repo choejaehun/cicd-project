@@ -11,11 +11,10 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
-    {{- range .Values.ingress.hosts }}
     - http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
+          {{- range .Values.ingress.hosts[0].paths }}
+          - path: {{ .path | quote }}
             pathType: {{ .pathType | default "Prefix" }}
             backend:
               service:
@@ -24,5 +23,4 @@ spec:
                 port:
                   number: {{ .backend.port.number | default 80 }}
           {{- end }}
-    {{- end }}
 {{- end }}
