@@ -654,7 +654,7 @@ service:
   ##
   ports:
     http: 80
-    https: 443
+    https: ""
   ##
   ## @param service.nodePorts [object] Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
@@ -668,7 +668,7 @@ service:
   ##
   targetPort:
     http: http
-    https: https
+    https: ""
   ## @param service.clusterIP NGINX service Cluster IP
   ## e.g.:
   ## clusterIP: None
