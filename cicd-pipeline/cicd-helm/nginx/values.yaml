@@ -812,22 +812,27 @@ ingress:
   ##   path: /
   ##
   extraHosts:
-    - name: cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # author-service 도메인
+    - name: cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com
       paths:
-        - path: /authors
+        - path: /
           pathType: Prefix
           backend:
             service:
-              name: author-service
+              name: nginx-msa
               port:
                 number: 8080
-    - name: cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # user-service 도메인
-      paths:
         - path: /users
           pathType: Prefix
           backend:
             service:
               name: user-service
+              port:
+                number: 8080
+        - path: /authors
+          pathType: Prefix
+          backend:
+            service:
+              name: authors-service
               port:
                 number: 8080
   extraPaths: []
