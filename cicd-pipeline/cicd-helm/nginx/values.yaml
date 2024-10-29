@@ -602,6 +602,10 @@ cloneStaticSiteFromGit:
 ##   }
 ##
 serverBlock: |-
+  http {
+    server_names_hash_bucket_size 128;
+  }
+
   server {
     listen 8080;
     server_name ing-cicd-nginx-ec21f-100182679-8026d9052dc6.kr.lb.naverncp.com;
