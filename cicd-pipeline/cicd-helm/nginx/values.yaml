@@ -72,14 +72,14 @@ ingress:
             serviceName: user-service
             namespace: cicd
             port:
-              number: 30002
+              number: 8080
         - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
             namespace: cicd
             port:
-              number: 30001
+              number: 8080
 
   tls: []
   #  - secretName: chart-example-tls
