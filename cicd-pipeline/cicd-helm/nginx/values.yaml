@@ -62,7 +62,7 @@ ingress:
   ingressClassName: "alb"
   annotations:
     alb.ingress.kubernetes.io/rewrite-target: /
-    alb.ingress.kubernetes.io/ssl-redirect: false  # 부울 값으로 변경
+    alb.ingress.kubernetes.io/ssl-redirect: "false"  # 부울 값으로 변경
   rules:
     - paths:
         - path: /users
