@@ -63,6 +63,8 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    ncloud.com/lb-type: "public"  # ALB 타입 (public 또는 internal)
+    ncloud.com/lb-protocol: "HTTP"  # ALB 프로토콜 (HTTP 또는 HTTPS)
   hosts:
     - host: "ingress-ngi-ingress-ngin-c771b-27045004-0c8a7e60fb37.kr.lb.naverncp.com"
       paths:
