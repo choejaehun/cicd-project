@@ -13,7 +13,7 @@ spec:
   rules:
     - http:
         paths:
-          {{- range .Values.ingress.hosts[0].paths }}
+          {{- range .Values.ingress.hosts.[0].paths }}
           - path: {{ .path | quote }}
             pathType: {{ .pathType | default "Prefix" }}
             backend:
