@@ -64,7 +64,7 @@ ingress:
     ncloud.com/lb-type: "public"  # ALB 타입 (public 또는 internal)
     ncloud.com/lb-protocol: "HTTP"  # ALB 프로토콜 (HTTP 또는 HTTPS)
   hosts:
-    - host: "ing-cicd-nginx-ec21f-100182679-8026d9052dc6.kr.lb.naverncp.com"
+    - host: ""
       paths:
         - path: /users
           pathType: Prefix
