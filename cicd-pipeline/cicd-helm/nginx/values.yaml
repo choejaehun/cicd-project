@@ -806,25 +806,25 @@ ingress:
   ## - name: nginx.local
   ##   path: /
   ##
-extraHosts:
-  - name: cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # author-service 도메인
-    paths:
-      - path: /authors
-        pathType: Prefix
-        backend:
-          service:
-            name: author-service
-            port:
-              number: 8080
-  - name: cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # user-service 도메인
-    paths:
-      - path: /users
-        pathType: Prefix
-        backend:
-          service:
-            name: user-service
-            port:
-              number: 8080
+  extraHosts:
+    - name: cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # author-service 도메인
+      paths:
+        - path: /authors
+          pathType: Prefix
+          backend:
+            service:
+              name: author-service
+              port:
+                number: 8080
+    - name: cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # user-service 도메인
+      paths:
+        - path: /users
+          pathType: Prefix
+          backend:
+            service:
+              name: user-service
+              port:
+                number: 8080
   extraPaths: []
   ## @param ingress.extraTls The tls configuration for additional hostnames to be covered with this ingress record.
   ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
