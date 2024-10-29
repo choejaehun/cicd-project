@@ -13,7 +13,8 @@ spec:
   rules:
     - http:
         paths:
-          {{- range $path := index .Values.ingress.hosts 0 "paths" }}
+          {{- range $index, $host := .Values.ingress.hosts }}
+          {{- range $path := $host.paths }}
           - path: {{ $path.path | quote }}
             pathType: {{ $path.pathType | default "Prefix" }}
             backend:
@@ -22,5 +23,6 @@ spec:
                 namespace: {{ $path.backend.namespace | default "cicd" }}
                 port:
                   number: {{ $path.backend.port.number | default 80 }}
+          {{- end }}
           {{- end }}
 {{- end }}
