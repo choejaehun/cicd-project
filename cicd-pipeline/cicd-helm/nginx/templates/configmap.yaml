@@ -4,14 +4,13 @@ metadata:
   name: {{ include "nginx.fullname" . }}
 data:
   nginx.conf: |
-    nginxConf: |
     http {
       upstream user_service {
-          server user.cicd.svc.cluster.local:8080;
+          server user-service.cicd.svc.cluster.local:8080;
       }
 
       upstream author_service {
-          server author.cicd.svc.cluster.local:8080;
+          server author-service.cicd.svc.cluster.local:8080;
       }
 
       server {
@@ -25,6 +24,8 @@ data:
               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               proxy_set_header X-Forwarded-Proto $scheme;
           }
+
+          # author 서비스 라우팅
           location /authors {
               proxy_pass http://author_service;
               proxy_set_header Host $host;
