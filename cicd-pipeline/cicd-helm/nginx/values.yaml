@@ -59,10 +59,10 @@ service:
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: true
-  ingressClassName: "nginx"
+  ingressClassName: "alb"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    alb.ingress.kubernetes.io/rewrite-target: /
+    alb.ingress.kubernetes.io/ssl-redirect: "false"
     ncloud.com/lb-type: "public"  # ALB 타입 (public 또는 internal)
     ncloud.com/lb-protocol: "HTTP"  # ALB 프로토콜 (HTTP 또는 HTTPS)
   hosts:
