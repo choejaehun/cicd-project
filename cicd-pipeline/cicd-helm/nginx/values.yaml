@@ -59,9 +59,10 @@ service:
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: true
-  ingressClassName: "alb"
+  ingressClassName: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
     - host: "ingress-ngi-ingress-ngin-c771b-27045004-0c8a7e60fb37.kr.lb.naverncp.com"
       paths:
