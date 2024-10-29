@@ -848,7 +848,7 @@ ingress:
           pathType: Prefix
           backend:
             service:
-              name: authors-service
+              name: author-service
               port:
                 number: 8080
   extraPaths: []
