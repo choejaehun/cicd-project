@@ -809,14 +809,14 @@ ingress:
   extraHosts:
     - name: author.cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # author-service 도메인
       paths:
-        - path: /
+        - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
             servicePort: 8080
     - name: user.cicd-nginx-msa-c6348-100184921-530f11a98b5c.kr.lb.naverncp.com  # user-service 도메인
       paths:
-        - path: /
+        - path: /users
           pathType: Prefix
           backend:
             serviceName: user-service
