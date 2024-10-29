@@ -61,8 +61,6 @@ ingress:
   enabled: true
   ingressClassName: "alb"
   annotations:
-    alb.ingress.kubernetes.io/rewrite-target: /
-    alb.ingress.kubernetes.io/ssl-redirect: "false"
     ncloud.com/lb-type: "public"  # ALB 타입 (public 또는 internal)
     ncloud.com/lb-protocol: "HTTP"  # ALB 프로토콜 (HTTP 또는 HTTPS)
   hosts:
