@@ -3,9 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "nginx.fullname" . }}
-  namespace: cicd
-  labels:
-    {{- include "nginx.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
@@ -13,16 +11,13 @@ spec:
   rules:
     - http:
         paths:
-          {{- range $index, $host := .Values.ingress.hosts }}
-          {{- range $path := $host.paths }}
-          - path: {{ $path.path | quote }}
-            pathType: {{ $path.pathType | default "Prefix" }}
+          {{- range .Values.ingress.rules[0].paths }}
+          - path: {{ .path | quote }}
+            pathType: {{ .pathType | default "Prefix" }}
             backend:
               service:
-                name: {{ $path.backend.serviceName }}
-                namespace: {{ $path.backend.namespace | default "cicd" }}
+                name: {{ .backend.serviceName }}
                 port:
-                  number: {{ $path.backend.port.number | default 80 }}
-          {{- end }}
+                  number: {{ .backend.port.number }}
           {{- end }}
 {{- end }}

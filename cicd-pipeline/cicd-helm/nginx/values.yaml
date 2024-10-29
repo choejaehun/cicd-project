@@ -62,11 +62,9 @@ ingress:
   ingressClassName: "alb"
   annotations:
     alb.ingress.kubernetes.io/rewrite-target: /
-    ncloud.com/lb-type: "public"
-    ncloud.com/lb-protocol: "HTTP"
-    alb.ingress.kubernetes.io/ssl-redirect: "false" 
-  hosts:
-      paths:
+    alb.ingress.kubernetes.io/ssl-redirect: "false"
+  rules:
+    - paths:
         - path: /users
           pathType: Prefix
           backend:
@@ -81,7 +79,6 @@ ingress:
             namespace: cicd
             port:
               number: 8080
-
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
