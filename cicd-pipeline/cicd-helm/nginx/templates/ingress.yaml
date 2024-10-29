@@ -13,14 +13,14 @@ spec:
   rules:
     - http:
         paths:
-          {{- range .Values.ingress.hosts.[0].paths }}
-          - path: {{ .path | quote }}
-            pathType: {{ .pathType | default "Prefix" }}
+          {{- range $path := index .Values.ingress.hosts 0 "paths" }}
+          - path: {{ $path.path | quote }}
+            pathType: {{ $path.pathType | default "Prefix" }}
             backend:
               service:
-                name: {{ .backend.serviceName }}
-                namespace: {{ .backend.namespace | default "cicd" }}
+                name: {{ $path.backend.serviceName }}
+                namespace: {{ $path.backend.namespace | default "cicd" }}
                 port:
-                  number: {{ .backend.port.number | default 80 }}
+                  number: {{ $path.backend.port.number | default 80 }}
           {{- end }}
 {{- end }}
