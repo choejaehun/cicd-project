@@ -70,15 +70,17 @@ ingress:
           pathType: Prefix
           backend:
             serviceName: user-service
+            namespace: cicd
             port:
-              number: 8080  # NodePort 포트 번호
-
+              number: 30002
         - path: /authors
           pathType: Prefix
           backend:
             serviceName: author-service
+            namespace: cicd
             port:
-              number: 8080  # NodePort 포트 번호
+              number: 30001
+
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

@@ -23,6 +23,7 @@ spec:
             backend:
               service:
                 name: {{ .backend.serviceName }}
+                namespace: {{ .backend.namespace | default "cicd" }}
                 port:
                   number: {{ .backend.port.number | default 80 }}
           {{- end }}
