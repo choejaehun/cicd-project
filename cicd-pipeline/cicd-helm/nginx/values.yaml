@@ -64,7 +64,7 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
-    - host: "example.local"
+    - host: ""
       paths:
         - path: /users
           pathType: Prefix
