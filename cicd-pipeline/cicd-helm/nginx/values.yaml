@@ -62,9 +62,8 @@ ingress:
   ingressClassName: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
-    - host: ""
+    - host: "ingress-ngi-ingress-ngin-c771b-27045004-0c8a7e60fb37.kr.lb.naverncp.com"
       paths:
         - path: /users
           pathType: Prefix
