@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: {{ include "user.fullname" . }}-rollout
+  name: {{ include "user.fullname" . }}-canary
   labels:
     {{- include "user.labels" . | nindent 4 }}
 spec:
