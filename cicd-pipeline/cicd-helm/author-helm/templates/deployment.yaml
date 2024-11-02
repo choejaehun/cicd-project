@@ -1,11 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
-  name: {{ include "author.fullname" . }}-deployment
+  name: {{ include "author.fullname" . }}-canary
   labels:
     {{- include "author.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: { duration: 15s }
+        - setWeight: 50
+        - pause: { duration: 15s }
+        - setWeight: 100
   selector:
     matchLabels:
       {{- include "author.selectorLabels" . | nindent 6 }}
@@ -31,31 +39,31 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: DB_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: author-configmap
-                key: db-port
-          - name: DB_URL
-            valueFrom:
-              configMapKeyRef:
-                name: author-configmap
-                key: db-url
-          - name: DB_NAME
-            valueFrom:
-              configMapKeyRef:
-                name: author-configmap
-                key: db-name
-          - name: DB_USERNAME          
-            valueFrom:
-              secretKeyRef:
-                name: author-secret
-                key: username
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: author-secret
-                key: password
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: author-configmap
+                  key: db-port
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: author-configmap
+                  key: db-url
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: author-configmap
+                  key: db-name
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: author-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: author-secret
+                  key: password
           ports:
             - name: http
               containerPort: 8080
