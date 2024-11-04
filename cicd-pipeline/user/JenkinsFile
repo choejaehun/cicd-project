@@ -46,7 +46,7 @@ pipeline {
                         def app = docker.build(imageName, './cicd-pipeline/user')
                         app.push("${IMAGE_TAG}")
                     }
-                    sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제
+                    sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제 test
                 }
             }
         }
