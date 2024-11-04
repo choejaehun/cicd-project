@@ -9,7 +9,7 @@ pipeline {
         DOCKER_REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
         AUTHOR_IMAGE = "choijaehun/authors"
         IMAGE_TAG = "1.1"
-        MYSQL_HOST = '172.17.0.4'
+        MYSQL_HOST = '172.17.0.3'
         MYSQL_PORT = '3306'
         MYSQL_DATABASE = 'cicd_project'
     }
