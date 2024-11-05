@@ -17,9 +17,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sshagent(credentials: ['ssh-key']) {
-                    git url: 'git@github.com:choejaehun/cicd-project.git', branch: 'main'
-                }
+                git credentialsId: 'ssh-key', url: 'https://github.com/choejaehun/cicd-project.git', branch: 'main'
             }
         }
 
