@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
+        NGINX_IMAGE = "choijaehun/nginx"
+        IMAGE_TAG = "1.2"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git credentialsId: 'ssh-key', url: 'https://github.com/choejaehun/cicd-project.git', branch: 'main'
+            }
+        }
+
+        stage('Docker Build and Push NGINX') {
+            steps {
+                script {
+                    def imageName = "${NGINX_IMAGE}:${IMAGE_TAG}"
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                        def nginxApp = docker.build(imageName, './cicd-pipeline/nginx')
+                        nginxApp.push("${IMAGE_TAG}")
+                    }
+                    sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
