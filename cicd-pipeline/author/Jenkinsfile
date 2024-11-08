@@ -41,7 +41,7 @@ pipeline {
                 script {
                     def imageName = "${AUTHOR_IMAGE}:${IMAGE_TAG}"
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        def app = docker.build(imageName, './cicd-pipeline/authors')
+                        def app = docker.build(imageName, './cicd-pipeline/author')
                         app.push("${IMAGE_TAG}")
                     }
                     sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제
