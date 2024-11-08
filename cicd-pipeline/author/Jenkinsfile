@@ -8,10 +8,10 @@ pipeline {
     environment {
         DOCKER_REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
         AUTHOR_IMAGE = "choijaehun/authors"
-        IMAGE_TAG = "latest"
         MYSQL_HOST = '172.17.0.3'
         MYSQL_PORT = '3306'
         MYSQL_DATABASE = 'cicd_project'
+        TAG_FILE = './cicd-pipeline/author/tag.txt' // 태그 파일 경로
     }
 
     stages {
@@ -24,6 +24,27 @@ pipeline {
         stage('Set Permissions') {
             steps {
                 sh 'chmod +x ./cicd-pipeline/author/gradlew'
+            }
+        }
+
+        stage('Load Tag') {
+            steps {
+                script {
+                    if (fileExists(TAG_FILE)) {
+                        // 태그 파일에서 현재 태그 읽기
+                        def currentTag = readFile(TAG_FILE).trim()
+                        def versionParts = currentTag.split("\\.")
+                        def minor = versionParts[1].toInteger() + 1
+                        IMAGE_TAG = "${versionParts[0]}.${String.format('%02d', minor)}"
+                    } else {
+                        // 태그 파일이 없으면 초기값 설정
+                        IMAGE_TAG = "1.00"
+                    }
+                    
+                    // 새 태그를 파일에 저장
+                    writeFile file: TAG_FILE, text: IMAGE_TAG
+                    echo "새로운 태그: ${IMAGE_TAG}"
+                }
             }
         }
 
