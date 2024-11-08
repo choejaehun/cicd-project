@@ -15,6 +15,15 @@ pipeline {
     }
 
     stages {
+        stage('Set New Tag') {
+            steps {
+                script {
+                    // 새로운 Docker 태그를 계산하는 로직을 여기에 추가 (예: 기존 태그에서 0.01 증가)
+                    // 예시: 아래와 같이 수동으로 설정하거나 동적으로 계산
+                    env.NEW_TAG = "21" // 동적으로 계산한 값을 설정
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 git credentialsId: 'ssh-key', url: 'https://github.com/choejaehun/cicd-project.git', branch: 'main'
