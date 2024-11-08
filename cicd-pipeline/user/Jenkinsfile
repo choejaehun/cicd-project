@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
-        AUTHOR_IMAGE = "choijaehun/user"
+        USER_IMAGE = "choijaehun/user"  // 'AUTHOR_IMAGE'를 'USER_IMAGE'로 변경
         IMAGE_TAG = "1.1"
         MYSQL_HOST = '172.17.0.3'
         MYSQL_PORT = '3306'
@@ -44,7 +44,7 @@ pipeline {
                         def app = docker.build(imageName, './cicd-pipeline/user')
                         app.push("${IMAGE_TAG}")
                     }
-                    sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제1
+                    sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제
                 }
             }
         }
