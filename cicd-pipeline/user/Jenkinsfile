@@ -8,7 +8,7 @@ pipeline {
     environment {
         DOCKER_REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
         AUTHOR_IMAGE = "choijaehun/user"
-        IMAGE_TAG = "1.1"
+        IMAGE_TAG = "1.2"
         MYSQL_HOST = '172.17.0.3'
         MYSQL_PORT = '3306'
         MYSQL_DATABASE = 'cicd_project'
@@ -39,7 +39,7 @@ pipeline {
         stage('Docker Build and Push User') {
             steps {
                 script {
-                    def imageName = "${AUTHOR_IMAGE}:${IMAGE_TAG}"
+                    def imageName = "${USER_IMAGE}:${IMAGE_TAG}"
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         def app = docker.build(imageName, './cicd-pipeline/user')
                         app.push("${IMAGE_TAG}")
