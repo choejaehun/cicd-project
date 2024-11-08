@@ -8,7 +8,7 @@ pipeline {
     environment {
         DOCKER_REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
         AUTHOR_IMAGE = "choijaehun/authors"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = "latest"  // 기본 값을 latest로 설정
         MYSQL_HOST = '172.17.0.3'
         MYSQL_PORT = '3306'
         MYSQL_DATABASE = 'cicd_project'
@@ -18,9 +18,8 @@ pipeline {
         stage('Set New Tag') {
             steps {
                 script {
-                    // 새로운 Docker 태그를 계산하는 로직을 여기에 추가 (예: 기존 태그에서 0.01 증가)
-                    // 예시: 아래와 같이 수동으로 설정하거나 동적으로 계산
-                    env.NEW_TAG = "21" // 동적으로 계산한 값을 설정
+                    // 새로운 Docker 태그를 계산하는 로직을 여기에 추가
+                    env.NEW_TAG = "latest" // 일시적으로 latest로 설정
                 }
             }
         }
@@ -30,7 +29,6 @@ pipeline {
             }
         }
         
-
         stage('Set Permissions') {
             steps {
                 sh 'chmod +x ./cicd-pipeline/author/gradlew'
@@ -39,9 +37,8 @@ pipeline {
         stage('Set Image Tag') {
             steps {
                 script {
-                    // Jenkins 빌드 번호로 태그 설정
-                    IMAGE_TAG = "${BUILD_NUMBER}"
-                    echo "빌드 번호로 설정된 태그: ${IMAGE_TAG}"
+                    IMAGE_TAG = "latest"  // 빌드 번호 대신 일시적으로 latest로 설정
+                    echo "태그가 latest로 설정되었습니다: ${IMAGE_TAG}"
                 }
             }
         }
@@ -70,8 +67,8 @@ pipeline {
         stage('Update Helm Values') {
             steps {
                 script {
-                    // values.yaml 파일에서 tag 값을 NEW_TAG로 업데이트
-                    sh "sed -i 's/tag:.*/tag: \"${NEW_TAG}\"/' ./cicd-pipeline/cicd-helm/author-helm/values.yaml"
+                    // values.yaml 파일에서 tag 값을 latest로 업데이트
+                    sh "sed -i 's/tag:.*/tag: \"latest\"/' ./cicd-pipeline/cicd-helm/author-helm/values.yaml"
                 }
             }
         }
