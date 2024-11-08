@@ -12,7 +12,7 @@ pipeline {
         MYSQL_PORT = '3306'
         MYSQL_DATABASE = 'cicd_project'
         TAG_FILE = './cicd-pipeline/author/tag.txt' // 태그 파일 경로
-        HELM_VALUES_PATH = '/root/cicd-project/cicd-pipeline/cicd-helm/author-helm/values.yaml'
+        HELM_VALUES_PATH = './cicd-pipeline/cicd-helm/author-helm/values.yaml'
     }
 
     stages {
