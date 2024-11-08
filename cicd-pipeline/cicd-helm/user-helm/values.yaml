@@ -6,7 +6,7 @@ replicaCount: 3
 
 image:
   repository: choijaehun/user
-  tag: "1.1"
+  tag: "1.3"
   # This sets the pull policy for images.
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.1
