@@ -3,7 +3,6 @@ kind: Rollout
 metadata:
   name: {{ include "author.fullname" . }}-canary
   annotations:
-    # ArgoCD Image Updater 설정 추가1
     argocd-image-updater.argoproj.io/image-list: choijaehun/authors
     argocd-image-updater.argoproj.io/choijaehun/authors.update-strategy: latest
   labels:
