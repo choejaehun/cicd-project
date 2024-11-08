@@ -20,6 +20,7 @@ pipeline {
                 git credentialsId: 'ssh-key', url: 'https://github.com/choejaehun/cicd-project.git', branch: 'main'
             }
         }
+        
 
         stage('Set Permissions') {
             steps {
@@ -53,6 +54,15 @@ pipeline {
                         app.push("${IMAGE_TAG}")
                     }
                     sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제
+                }
+            }
+        }
+
+        stage('Update Helm Values') {
+            steps {
+                script {
+                    // values.yaml 파일에서 tag 값을 NEW_TAG로 업데이트
+                    sh "sed -i 's/tag:.*/tag: \"${NEW_TAG}\"/' ./cicd-pipeline/author/values.yaml"
                 }
             }
         }
