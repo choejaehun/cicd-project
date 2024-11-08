@@ -71,7 +71,7 @@ pipeline {
             steps {
                 script {
                     // values.yaml 파일에서 tag 값을 NEW_TAG로 업데이트
-                    sh "sed -i 's/tag:.*/tag: \"${NEW_TAG}\"/' ./cicd-pipeline/author/values.yaml"
+                    sh "sed -i 's/tag:.*/tag: \"${NEW_TAG}\"/' ./cicd-pipeline/cicd-helm/author-helm/values.yaml"
                 }
             }
         }
