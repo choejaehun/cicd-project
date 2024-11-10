@@ -82,7 +82,7 @@ image:
   repository: choijaehun/nginx
   tag: "1.1"
   ## Specify a imagePullPolicy
-  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'1
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
   pullPolicy: Always

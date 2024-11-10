@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kiali-log-access-binding
+  namespace: cicd
+subjects:
+- kind: ServiceAccount
+  name: kiali
+  namespace: istio-system  # Kiali 서비스 계정은 istio-system 네임스페이스에 있습니다
+roleRef:
+  kind: Role
+  name: kiali-log-access
+  apiGroup: rbac.authorization.k8s.io
+

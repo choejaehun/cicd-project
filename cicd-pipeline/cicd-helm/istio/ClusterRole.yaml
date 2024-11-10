@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kiali
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "endpoints", "pods", "services", "nodes", "namespaces", "replicationcontrollers"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["networking.istio.io"]
+  resources: ["virtualservices", "gateways", "destinationrules", "serviceentries", "envoyfilters", "workloadgroups", "sidecars", "workloadentries"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["security.istio.io"]
+  resources: ["peerauthentications", "authorizationpolicies", "requestauthentications"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["telemetry.istio.io"]
+  resources: ["telemetries"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["extensions.istio.io"]
+  resources: ["wasmplugins"]
+  verbs: ["get", "list", "watch"]
+

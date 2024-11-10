@@ -1,0 +1,10 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: cicd
+  name: kiali-log-access
+rules:
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list"]
+

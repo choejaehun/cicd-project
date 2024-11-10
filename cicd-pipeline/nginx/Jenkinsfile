@@ -22,7 +22,7 @@ pipeline {
                         def nginxApp = docker.build(imageName, './cicd-pipeline/nginx')
                         nginxApp.push("${IMAGE_TAG}")
                     }
-                    sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제
+                    sh "docker rmi ${imageName} || true" // 푸시 후 로컬에서 이미지 삭제1
                 }
             }
         }
