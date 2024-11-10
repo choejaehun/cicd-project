@@ -48,7 +48,21 @@ pipeline {
                 }
             }
         }
+        stage('ArgoCD Sync') {
+             steps {
+                script {
+         
+                  sh '''
+                # ArgoCD에 로그인
+                argocd login argocd-argocd-server-3845b-27065279-bf3eedecde53.kr.lb.naverncp.com --username admin --password P@ssw0rd --insecure
+                
+                # ArgoCD 애플리케이션 동기화
+                argocd app sync author --grpc-web
+            '''
+           }
+        }
     }
+ }
 
     post {
         always {
@@ -56,18 +70,5 @@ pipeline {
         }
     }
 
-    stage('ArgoCD Sync') {
-    steps {
-        script {
-            // ArgoCD CLI를 사용하여 동기화 트리거
-            sh '''
-                # ArgoCD에 로그인
-                argocd login argocd-argocd-server-3845b-27065279-bf3eedecde53.kr.lb.naverncp.com --username admin --password P@ssw0rd --insecure
-                
-                # ArgoCD 애플리케이션 동기화
-                argocd app sync author --grpc-web
-            '''
-        }
-     }
- }
+    
 }
